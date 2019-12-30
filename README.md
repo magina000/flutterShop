@@ -2,6 +2,16 @@
 
 A new Flutter project.
 
+体验移动端开发
+
+## 检测编译环境
+flutter doctor
+
+## 开启模拟器或真机，编译运行
+flutter run
+
+备注：接口数据由技术胖提供。
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
