@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import '../model/category.dart';
+import '../model/childCategory.dart';
 
-class ChildCategory with ChangeNotifier {
+class ChildCategoryProvide with ChangeNotifier {
   List<BxMallSubDto> childCategoryList = [];
 
-  getChildCategory(List list) {
-    childCategoryList = list;
+  getChildCategory(List<BxMallSubDto> list) {
+    BxMallSubDto all = BxMallSubDto();
+    all.mallSubId = '00';
+    all.mallCategoryId = '00';
+    all.mallSubName = '全部';
+    all.comments = 'null';
+    childCategoryList = [all];
+    childCategoryList.addAll(list);
     //通知监听者刷新。
     notifyListeners();
   }
