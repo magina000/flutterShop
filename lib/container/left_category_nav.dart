@@ -20,6 +20,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   @override
   void initState() {
     getCategory();
+    // getGoodList();
     super.initState();
     print('222222');
   }
@@ -49,6 +50,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
 
       Provide.value<ChildCategoryProvide>(context).getChildCategory(
           categoryList[0].bxMallSubDto, categoryList[0].mallCategoryId);
+      getGoodList();
     });
   }
 
@@ -65,7 +67,8 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
       if (categoryGoodsModel.data == null) {
         Provide.value<CategoryGoodsListProvide>(context).getGoodsList([]);
       } else {
-        Provide.value<CategoryGoodsListProvide>(context).getGoodsList(categoryGoodsModel.data);
+        Provide.value<CategoryGoodsListProvide>(context)
+            .getGoodsList(categoryGoodsModel.data);
       }
     });
   }

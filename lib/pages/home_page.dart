@@ -18,7 +18,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-
 // class _HomePageState extends State<HomePage> {
   int page = 1;
   List<Map> hotGoodsList = [];
@@ -70,13 +69,16 @@ class _HomePageState extends State<HomePage>
               List<Map> floor3 =
                   (data['data']['floor3'] as List).cast(); //楼层3商品和图片
 
+              String loadedText = '加载完成';
+
               return EasyRefresh(
                 footer: ClassicalFooter(
-                  loadingText: '上拉加载',
+                  loadingText: '加载中...',
+                  loadReadyText: '上拉加载',
+                  loadedText: loadedText,
                   bgColor: Colors.white,
                   textColor: Colors.pink,
-                  infoColor: Colors.pink,
-                  infoText: '加载中...',
+                  showInfo: false,
                 ),
                 child: ListView(
                   children: <Widget>[
@@ -101,10 +103,16 @@ class _HomePageState extends State<HomePage>
                       .then((resp) {
                     var data = json.decode(resp.toString());
                     List<Map> newGoodsList = (data['data'] as List).cast();
-                    setState(() {
-                      hotGoodsList.addAll(newGoodsList);
-                      page++;
-                    });
+                    if (newGoodsList.length > 0) {
+                      setState(() {
+                        hotGoodsList.addAll(newGoodsList);
+                        page++;
+                      });
+                    } else {
+                      setState(() {
+                        loadedText = '没有更多了';
+                      });
+                    }
                   });
                 },
               );

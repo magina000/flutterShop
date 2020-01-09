@@ -8,4 +8,10 @@ class CategoryGoodsListProvide with ChangeNotifier {
     goodsList = list;
     notifyListeners();
   }
+
+  //下拉刷新增加商品列表
+  addGoodsList(List<Data> list) {
+    goodsList.addAll(list);
+    notifyListeners();
+  }
 }

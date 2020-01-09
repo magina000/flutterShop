@@ -68,7 +68,7 @@ class _RightCategoryNavState extends State<RightCategoryNav> {
 
     return InkWell(
       onTap: () {
-        Provide.value<ChildCategoryProvide>(context).changeChildIndex(index);
+        Provide.value<ChildCategoryProvide>(context).changeChildIndex(index, item.mallSubId);
         getGoodList(item.mallSubId);
       },
       child: Container(
