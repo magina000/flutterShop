@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'dart:convert';
-import '../service/service_method.dart';
-import '../model/categoryGoodsList.dart';
+import 'package:provide/provide.dart';
+import '../provide/category_goods_list.dart';
 
 class CategoryGoodsList extends StatefulWidget {
   @override
@@ -10,42 +9,45 @@ class CategoryGoodsList extends StatefulWidget {
 }
 
 class _CategoryGoodsListState extends State<CategoryGoodsList> {
-  List categoryGoodsList = [];
-
-  @override
-  void initState() {
-    // getGoodList();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        width: ScreenUtil().setWidth(621),
-        child: ListView.builder(
-          itemCount: categoryGoodsList.length,
-          itemBuilder: (context, index){
-            return _listWidget(index);
-          },
-        ),
-      ),
+    return Provide<CategoryGoodsListProvide>(
+      builder: (context, child, data) {
+        if (data.goodsList.length > 0) {
+          return Expanded(
+            child: Container(
+              width: ScreenUtil().setWidth(621),
+              child: ListView.builder(
+                itemCount: data.goodsList.length,
+                itemBuilder: (context, index) {
+                  return _listWidget(data.goodsList, index);
+                },
+              ),
+            ),
+          );
+        } else {
+          return Container(
+            margin: EdgeInsets.only(top: 10),
+            child: Text('暂时没有所属商品'),
+          );
+        }
+      },
     );
   }
 
-  Widget _goodsImage(index) {
+  Widget _goodsImage(goodsList, index) {
     return Container(
       width: ScreenUtil().setWidth(250),
-      child: Image.network(categoryGoodsList[index].image),
+      child: Image.network(goodsList[index].image),
     );
   }
 
-  Widget _goodsName(index) {
+  Widget _goodsName(goodsList, index) {
     return Container(
       width: ScreenUtil().setWidth(371),
       padding: EdgeInsets.only(top: 5, bottom: 5),
       child: Text(
-        categoryGoodsList[index].goodsName,
+        goodsList[index].goodsName,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(fontSize: ScreenUtil().setSp(28)),
@@ -53,42 +55,40 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
     );
   }
 
-  Widget _goodsPrice(index) {
+  Widget _goodsPrice(goodsList, index) {
     return Container(
         width: ScreenUtil().setWidth(371),
         margin: EdgeInsets.only(top: 20.0),
         child: Row(children: <Widget>[
           Text(
-            '价格:￥${categoryGoodsList[index].presentPrice}',
+            '价格:￥${goodsList[index].presentPrice}',
             style:
                 TextStyle(color: Colors.pink, fontSize: ScreenUtil().setSp(30)),
           ),
           Text(
-            '￥${categoryGoodsList[index].oriPrice}',
+            '￥${goodsList[index].oriPrice}',
             style: TextStyle(
                 color: Colors.black26, decoration: TextDecoration.lineThrough),
           )
         ]));
   }
 
-  Widget _listWidget(index) {
+  Widget _listWidget(goodsList, index) {
     return InkWell(
       onTap: () {},
       child: Container(
         padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            bottom: BorderSide(width: 1.0,color: Colors.black12)
-          )
-        ),
+            color: Colors.white,
+            border:
+                Border(bottom: BorderSide(width: 1.0, color: Colors.black12))),
         child: Row(
           children: <Widget>[
-            _goodsImage(index),
+            _goodsImage(goodsList, index),
             Column(
               children: <Widget>[
-                _goodsName(index),
-                _goodsPrice(index)
+                _goodsName(goodsList, index),
+                _goodsPrice(goodsList, index)
               ],
             )
           ],

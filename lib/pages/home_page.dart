@@ -18,6 +18,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
+
+// class _HomePageState extends State<HomePage> {
   int page = 1;
   List<Map> hotGoodsList = [];
 
@@ -25,6 +27,7 @@ class _HomePageState extends State<HomePage>
   void initState() {
     getHotGoods();
     super.initState();
+    print("1111");
   }
 
   @override

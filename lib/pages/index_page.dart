@@ -12,25 +12,23 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
-  PageController pageController;
+  // PageController pageController;
+  final pageController = PageController();
   //页面数组
-  final List<Widget> tabBodies = [HomePage(), CategoryPage(), CartPage(), MemberPage()];
+  final List<Widget> tabBodies = [
+    HomePage(),
+    CategoryPage(),
+    CartPage(),
+    MemberPage()
+  ];
   int currentIndex = 0; //当前页序号
-  var currentPage; //当前页面
+  // var currentPage; //当前页面
   //初始化
-  @override
-  void initState() {
-    currentPage = tabBodies[currentIndex];
-    pageController = new PageController()
-      ..addListener(() {
-        if (currentPage != pageController.page.round()) {
-          setState(() {
-            currentPage = pageController.page.round();
-          });
-        }
-      });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   currentPage = tabBodies[currentIndex];
+  //   super.initState();
+  // }
 
   //底部栏
   final List<BottomNavigationBarItem> bottomTabs = [
@@ -47,21 +45,36 @@ class _IndexPageState extends State<IndexPage> {
   Widget build(BuildContext context) {
     ScreenUtil.instance = ScreenUtil(width: 828, height: 1792)..init(context);
     return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
+      /**
+       * 保持页面状态
+       * 可以直接用IndexedStack实现，但是当应用第一次加载的时候，所有子页状态都会被实例化
+       * 通过PageView/TabBarView和AutomaticKeepAliveClientMixin实现
+       */
+      // body: currentPage,
+      // body: IndexedStack(
+      //   index: currentIndex,
+      //   children: tabBodies,
+      // ),
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
         children: tabBodies,
       ),
-      // body: currentPage,
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
         items: bottomTabs,
         type: BottomNavigationBarType.fixed,
         currentIndex: currentIndex,
         onTap: (index) {
-          setState(() {
-            currentIndex = index;
-            currentPage = tabBodies[currentIndex];
-          });
+          // setState(() {
+          //   currentIndex = index;
+          //   currentPage = tabBodies[currentIndex];
+          // });
+          pageController.jumpToPage(index);
         },
       ),
     );

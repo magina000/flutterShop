@@ -21,6 +21,7 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
   void initState() {
     getCategory();
     super.initState();
+    print('222222');
   }
 
   @override
@@ -46,12 +47,12 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         categoryList = listModel.data;
       });
 
-      Provide.value<ChildCategoryProvide>(context)
-          .getChildCategory(categoryList[0].bxMallSubDto);
+      Provide.value<ChildCategoryProvide>(context).getChildCategory(
+          categoryList[0].bxMallSubDto, categoryList[0].mallCategoryId);
     });
   }
 
-  void getGoodList(String categoryId) async {
+  void getGoodList({String categoryId}) async {
     var data = {
       'categoryId': categoryId == null ? '4' : categoryId,
       'categorySubId': "",
@@ -59,8 +60,13 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
     };
     await request('getMallGoods', formData: data).then((val) {
       var data = json.decode(val.toString());
-      CategoryGoodsListModel categoryGoodsModel = CategoryGoodsListModel.fromJson(data);
-      Provide.value<CategoryGoodsListProvide>(context).getGoodsList(categoryGoodsModel.data); 
+      CategoryGoodsListModel categoryGoodsModel =
+          CategoryGoodsListModel.fromJson(data);
+      if (categoryGoodsModel.data == null) {
+        Provide.value<CategoryGoodsListProvide>(context).getGoodsList([]);
+      } else {
+        Provide.value<CategoryGoodsListProvide>(context).getGoodsList(categoryGoodsModel.data);
+      }
     });
   }
 
@@ -74,9 +80,10 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
           listIndex = index;
         });
         var childList = categoryList[index].bxMallSubDto;
-        var categoryId = categoryList[index].categoryId;
+        var categoryId = categoryList[index].mallCategoryId;
         Provide.value<ChildCategoryProvide>(context)
-            .getChildCategory(childList);
+            .getChildCategory(childList, categoryId);
+        getGoodList(categoryId: categoryId);
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
