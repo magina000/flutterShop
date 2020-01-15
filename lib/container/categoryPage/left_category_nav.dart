@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
 import 'dart:convert';
-import '../service/service_method.dart';
-import '../model/childCategory.dart';
-import '../model/categoryGoodsList.dart';
-import '../provide/child_category.dart';
-import '../provide/category_goods_list.dart';
+import '../../service/service_method.dart';
+import '../../model/childCategory.dart';
+import '../../model/categoryGoodsList.dart';
+import '../../provide/child_category.dart';
+import '../../provide/category_goods_list.dart';
 
 class LeftCategoryNav extends StatefulWidget {
   @override

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../container/left_category_nav.dart';
-import '../container/right_category_nav.dart';
-import '../container/category_goods_list.dart';
+import '../container/categoryPage/left_category_nav.dart';
+import '../container/categoryPage/right_category_nav.dart';
+import '../container/categoryPage/category_goods_list.dart';
 
 class CategoryPage extends StatefulWidget {
   @override

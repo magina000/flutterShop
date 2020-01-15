@@ -4,10 +4,11 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:provide/provide.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
-import '../provide/category_goods_list.dart';
-import '../provide/child_category.dart';
-import '../service/service_method.dart';
-import '../model/categoryGoodsList.dart';
+import '../../provide/category_goods_list.dart';
+import '../../provide/child_category.dart';
+import '../../service/service_method.dart';
+import '../../model/categoryGoodsList.dart';
+import '../../router/application.dart';
 
 class CategoryGoodsList extends StatefulWidget {
   @override
@@ -21,13 +22,13 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
   Widget build(BuildContext context) {
     return Provide<CategoryGoodsListProvide>(
       builder: (context, child, data) {
-        // try {
-        //   if (Provide.value<ChildCategoryProvide>(context).page == 1) {
-        //     scrollController.jumpTo(0.0);
-        //   }
-        // } catch (e) {
-        //   print('进入页面第一次初始化：${e}');
-        // }
+        try {
+          if (Provide.value<ChildCategoryProvide>(context).page == 1) {
+            scrollController.jumpTo(0.0);
+          }
+        } catch (e) {
+          print('进入页面第一次初始化：${e}');
+        }
 
         if (data.goodsList.length > 0) {
           return Expanded(
@@ -136,7 +137,9 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
 
   Widget _listWidget(goodsList, index) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Application.router.navigateTo(context, "/detail?id=${goodsList['goodsId']}");
+      },
       child: Container(
         padding: EdgeInsets.only(top: 5.0, bottom: 5.0),
         decoration: BoxDecoration(

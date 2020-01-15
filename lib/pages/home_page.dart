@@ -3,13 +3,14 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:convert';
 import '../service/service_method.dart';
-import '../container/swiper_home_page.dart';
-import '../container/top_navigator.dart';
-import '../container/ad_banner.dart';
-import '../container/leader_phone.dart';
-import '../container/recommend_list.dart';
-import '../container/floor_title.dart';
-import '../container/floor_content.dart';
+import '../container/homePage/swiper_home_page.dart';
+import '../container/homePage/top_navigator.dart';
+import '../container/homePage/ad_banner.dart';
+import '../container/homePage/leader_phone.dart';
+import '../container/homePage/recommend_list.dart';
+import '../container/homePage/floor_title.dart';
+import '../container/homePage/floor_content.dart';
+import '../router/application.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -153,6 +154,7 @@ class _HomePageState extends State<HomePage>
         return InkWell(
           onTap: () {
             print('点击了火爆商品');
+            Application.router.navigateTo(context, "/detail?id=${goods['goodsId']}");
           },
           child: Container(
             width: ScreenUtil().setWidth(411),

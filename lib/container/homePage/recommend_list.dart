@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../router/application.dart';
 
 class RecommendList extends StatelessWidget {
   final List recommendList;
@@ -39,16 +40,18 @@ class RecommendList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: recommendList.length,
         itemBuilder: (context, index) {
-          return _ItemWidget(index);
+          return _itemWidget(context, index);
         },
       ),
     );
   }
 
   //推荐商品
-  Widget _ItemWidget(index) {
+  Widget _itemWidget(context, index) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Application.router.navigateTo(context, "/detail?id=${recommendList[index]['goodsId']}");
+      },
       child: Container(
         height: ScreenUtil().setHeight(354),
         width: ScreenUtil().setWidth(276),
