@@ -135,10 +135,12 @@ class _CategoryGoodsListState extends State<CategoryGoodsList> {
         ]));
   }
 
-  Widget _listWidget(goodsList, index) {
+  Widget _listWidget(List<Data> goodsList, int index) {
     return InkWell(
       onTap: () {
-        Application.router.navigateTo(context, "/detail?id=${goodsList['goodsId']}");
+        print(json.encode(goodsList[index]));
+        // String goodId = goodsList[index]['goodsId'];
+        // Application.router.navigateTo(context, "/detail?id=${goods['goodsId']}");
       },
       child: Container(
         padding: EdgeInsets.only(top: 5.0, bottom: 5.0),

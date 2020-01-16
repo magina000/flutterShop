@@ -47,7 +47,7 @@ class RecommendList extends StatelessWidget {
   }
 
   //推荐商品
-  Widget _itemWidget(context, index) {
+  Widget _itemWidget(BuildContext context, int index) {
     return InkWell(
       onTap: () {
         Application.router.navigateTo(context, "/detail?id=${recommendList[index]['goodsId']}");

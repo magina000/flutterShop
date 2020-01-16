@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provide/provide.dart';
 import '../provide/goods_detail.dart';
 import '../container/detailsPage/top_area.dart';
-import 'dart:convert';
+import '../container/detailsPage/explain.dart';
+import '../container/detailsPage/tab_bar.dart';
+import '../container/detailsPage/html_text.dart';
+import '../container/detailsPage/bottom.dart';
 
 class DetailsPage extends StatelessWidget {
   final String goodsId;
@@ -25,10 +28,23 @@ class DetailsPage extends StatelessWidget {
         future: getGoodsDetail(context),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Container(
-                child: Row(
-              children: <Widget>[TopArea()],
-            ));
+            return Stack(
+              children: <Widget>[
+                ListView(
+                  children: <Widget>[
+                    TopArea(),
+                    Explain(),
+                    MyTabBar(),
+                    HtmlText()
+                  ],
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: Bottom(),
+                )
+              ],
+            );
           } else {
             return Text('加载中........');
           }
