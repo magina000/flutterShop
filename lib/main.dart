@@ -7,19 +7,20 @@ import 'pages/index_page.dart';
 import 'provide/child_category.dart';
 import 'provide/category_goods_list.dart';
 import 'provide/goods_detail.dart';
+import 'provide/cart.dart';
 
 void main() {
   var childCategoryProvide = ChildCategoryProvide();
   var categoryGoodsListProvide = CategoryGoodsListProvide();
   var goodsDetailProvide = GoodsDetailProvide();
+  var cartProvide = CartProvide();
 
   var providers = Providers();
   providers
     ..provide(Provider<ChildCategoryProvide>.value(childCategoryProvide))
-    ..provide(
-        Provider<CategoryGoodsListProvide>.value(categoryGoodsListProvide))
-    ..provide(
-        Provider<GoodsDetailProvide>.value(goodsDetailProvide));
+    ..provide(Provider<CategoryGoodsListProvide>.value(categoryGoodsListProvide))
+    ..provide(Provider<GoodsDetailProvide>.value(goodsDetailProvide))
+    ..provide(Provider<CartProvide>.value(cartProvide));
 
   runApp(ProviderNode(child: MyApp(), providers: providers));
 }
